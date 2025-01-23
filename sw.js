@@ -223,7 +223,18 @@ function responseByFetch(e, resolve) {
 self.addEventListener('fetch', function(e) {
 
   let reqUrl = new URL(e.request.url);
-  if (reqUrl.pathname == '/') {
+  if (reqUrl.pathname == '/codetmp7-editor/' || reqUrl.pathname == '/codetmp7-editor') {
+    e.respondWith(
+      caches.match(e.request).then(function(resp) {
+        return fetch(e.request).then(function(r) {
+          return r;
+        }).catch(function() {
+          console.error('Check connection.');
+        });
+      })
+    );
+
+  } else if (reqUrl.pathname == '/') {
     e.respondWith(
       caches.match(e.request).then(function(resp) {
         if (resp) {
