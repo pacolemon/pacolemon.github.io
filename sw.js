@@ -8,6 +8,11 @@ let isRelinkingMessagePort = false;
 
 let channelName = 'preview';
 
+const bc = new BroadcastChannel("test_channel");
+bc.onmessage = (event) => {
+  console.log('from the iframe i get',event);
+};
+
 function portMessageHandler(e) {
   switch (e.data.message) {
     
